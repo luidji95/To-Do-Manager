@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
-function FormRegistration() {
+function FormRegistration({ handleLogin }) {
   const [isLogin, setIsLogin] = useState(true);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   return (
     <>
@@ -13,19 +15,19 @@ function FormRegistration() {
               className={`toggle-btn ${isLogin ? "active" : ""}`}
               onClick={() => setIsLogin(true)}
             >
-              Logovanje
+              Log In
             </button>
             <button
               className={`toggle-btn ${!isLogin ? "active" : ""}`}
               onClick={() => setIsLogin(false)}
             >
-              Registracija
+              Registration
             </button>
           </div>
           <div className="form-content">
             {isLogin ? (
               <form className="form-section active">
-                <h2>Logovanje</h2>
+                <h2>Log In</h2>
                 <div className="form-group">
                   <label htmlFor="loginEmail">Email</label>
                   <input
@@ -33,28 +35,38 @@ function FormRegistration() {
                     id="loginEmail"
                     name="loginEmail"
                     placeholder="Unesite email"
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
                     required
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="loginPassword">Lozinka</label>
+                  <label htmlFor="loginPassword">Password</label>
                   <input
                     type="password"
                     id="loginPassword"
                     name="loginPassword"
                     placeholder="Unesite lozinku"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
                     required
                   />
                 </div>
-                <button type="submit" className="btn">
-                  Uloguj se
+                <button
+                  type="submit"
+                  className="btn"
+                  onSubmit={() => {
+                    handleLogin(loginEmail, loginPassword);
+                  }}
+                >
+                  Log In
                 </button>
               </form>
             ) : (
               <form className="form-section active">
-                <h2>Registracija</h2>
+                <h2>Registration</h2>
                 <div className="form-group">
-                  <label htmlFor="username">Korisničko ime</label>
+                  <label htmlFor="username">Username</label>
                   <input
                     type="text"
                     id="username"
@@ -74,7 +86,7 @@ function FormRegistration() {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password">Lozinka</label>
+                  <label htmlFor="password">Password</label>
                   <input
                     type="password"
                     id="password"
@@ -84,7 +96,7 @@ function FormRegistration() {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="confirmPassword">Potvrdi lozinku</label>
+                  <label htmlFor="confirmPassword">Confirm password</label>
                   <input
                     type="password"
                     id="confirmPassword"
@@ -94,7 +106,7 @@ function FormRegistration() {
                   />
                 </div>
                 <button type="submit" className="btn">
-                  Registruj se
+                  Create Account
                 </button>
               </form>
             )}

@@ -70,10 +70,10 @@
   transition: color 0.3s, border-bottom 0.3s;
 }
 
-.toggle-btn.active {
+/* .toggle-btn.active {
   border-bottom: 2px solid #6d5dfc;
   color: #6d5dfc;
-}
+} */
 
 .form-content {
   position: relative;
