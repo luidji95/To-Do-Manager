@@ -1,9 +1,11 @@
-function Header({ username }) {
+function Header({ username, logout }) {
   return (
     <div className="header-container">
       <h1>To Do Manager Application</h1>
-      {username && <p>Welcome, {username}!</p>}
-      <button className="log-out-btn">Log out</button>
+      <p>Welcome, {username}!</p>
+      <button className="log-out-btn" onClick={logout}>
+        Log out
+      </button>
     </div>
   );
 }

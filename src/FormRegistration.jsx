@@ -55,7 +55,7 @@ function FormRegistration({ handleLogin }) {
                 <button
                   type="submit"
                   className="btn"
-                  onSubmit={() => {
+                  onClick={() => {
                     handleLogin(loginEmail, loginPassword);
                   }}
                 >

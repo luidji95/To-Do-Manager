@@ -37,10 +37,17 @@ function App() {
     }
   }
 
+  function handleLogout() {
+    setLoggedUser("");
+  }
+
   return (
     <>
-      <FormRegistration handleLogin={handleLogin} />
-      <Header username={loggedUser} />
+      {!loggedUser ? (
+        <FormRegistration handleLogin={handleLogin} />
+      ) : (
+        <Header username={loggedUser} logout={handleLogout} />
+      )}
     </>
   );
 }
