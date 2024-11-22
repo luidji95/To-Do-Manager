@@ -15,18 +15,21 @@ function App() {
       eMail: "milos.petrovic09.95@gmail.com",
       password: "Milos12091995",
       toDos: [],
+      userId: 1,
     },
     {
       username: "Jovana",
       eMail: "jovana.maric88@gmail.com",
       password: "Jovana19880516",
       toDos: [],
+      userId: 2,
     },
     {
       username: "Stefan",
       eMail: "stefan.popovic78@gmail.com",
       password: "Stefan19781203",
       toDos: [],
+      userID: 3,
     },
   ]);
 
@@ -36,6 +39,7 @@ function App() {
     );
     if (user) {
       setLoggedUser(user.username);
+      setTodos(user.toDos);
     } else {
       alert("Wrong email or password");
     }
@@ -61,11 +65,29 @@ function App() {
     setTodos((prev) => {
       return [...prev, newToDo];
     });
+
+    setAccounts((prevAccounts) =>
+      prevAccounts.map((acc) =>
+        acc.username === loggedUser
+          ? { ...acc, toDos: [...acc.toDos, newToDo] }
+          : acc
+      )
+    );
+
+    setIsAdding(false);
   };
 
-  // const  handleDelete(id) {
-  //   setTodos(todos.filter((todo) => todo.id !== id))
-  // }
+  const handleDelete = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+
+    setAccounts((prevAccounts) =>
+      prevAccounts.map((acc) =>
+        acc.username === loggedUser
+          ? { ...acc, toDos: acc.toDos.filter((todo) => todo.id !== id) }
+          : acc
+      )
+    );
+  };
 
   return (
     <>
@@ -81,7 +103,11 @@ function App() {
               Add New ToDo
             </button>
           )}
-          <ToDoList todos={todos} setTodos={setTodos} />
+          <ToDoList
+            todos={todos}
+            setTodos={setTodos}
+            handleDelete={handleDelete}
+          />
         </>
       )}
     </>

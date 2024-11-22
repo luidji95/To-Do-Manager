@@ -1,18 +1,14 @@
 import ToDoItem from "./ToDoItem";
 import React from "react";
 
-const ToDoList = ({ todos, setTodos }) => {
-  const handleDelete = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
+const ToDoList = ({ todos, handleDelete }) => {
   return (
     <div className="todo-list">
       {todos.map((todo) => (
         <ToDoItem
           key={todo.id}
           todoName={todo.name}
-          onDelete={() => handleDelete(todo.id)}
+          handleDelete={() => handleDelete(todo.id)}
         />
       ))}
     </div>

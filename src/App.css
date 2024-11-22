@@ -150,3 +150,208 @@
   align-items: center;
   gap: 100px;
 }
+
+.new-todo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.new-todo form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.new-todo input[type="text"] {
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.new-todo input[type="text"]:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+.add-todo-btn,
+.cancle-btn {
+  padding: 10px 15px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-todo-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.add-todo-btn:hover {
+  background-color: #45a049;
+}
+
+.cancle-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancle-btn:hover {
+  background-color: #e53935;
+}
+
+@media (max-width: 480px) {
+  .new-todo {
+    width: 95%;
+  }
+
+  .new-todo input[type="text"] {
+    font-size: 14px;
+  }
+
+  .add-todo-btn,
+  .cancle-btn {
+    font-size: 12px;
+  }
+}
+
+/* Stil za listu zadataka */
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px auto;
+  padding: 10px;
+  width: 100%;
+  max-width: 500px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* Stil za pojedinačan zadatak */
+.todo-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.todo-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Stil za tekst zadatka */
+.todo-container p {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  flex-grow: 1;
+  text-align: left;
+  padding-right: 15px;
+  word-wrap: break-word;
+}
+
+/* Stil za dugme za brisanje */
+.delete-todo {
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-todo:hover {
+  background-color: #e53935;
+  transform: translateY(-2px);
+}
+
+/* Stil za checkbox */
+.todo-container input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-left: 10px;
+  cursor: pointer;
+  accent-color: #6c63ff;
+  border-radius: 3px;
+  transition: transform 0.2s ease;
+}
+
+.todo-container input[type="checkbox"]:hover {
+  transform: scale(1.1);
+}
+
+/* Media query za manje uređaje */
+@media (max-width: 480px) {
+  .todo-list {
+    padding: 15px;
+  }
+
+  .todo-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .delete-todo {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.add-task-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: #6c63ff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+.add-task-btn:hover {
+  background-color: #574fdb;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+}
+
+.add-task-btn:active {
+  background-color: #453ec4;
+  transform: translateY(1px);
+  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+}
+
+.add-task-btn:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(108, 99, 255, 0.8);
+}
