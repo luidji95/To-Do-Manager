@@ -6,7 +6,7 @@ import ToDoList from "./ToDoList";
 import NewToDo from "./NewToDo";
 
 function App() {
-  const [loggedUser, setLoggedUser] = useState("");
+  const [loggedUser, setLoggedUser] = useState(null);
   const [todos, setTodos] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
   const [accounts, setAccounts] = useState([
@@ -29,7 +29,7 @@ function App() {
       eMail: "stefan.popovic78@gmail.com",
       password: "Stefan19781203",
       toDos: [],
-      userID: 3,
+      userId: 3,
     },
   ]);
 
@@ -38,7 +38,7 @@ function App() {
       (acc) => acc.eMail === email && acc.password === password
     );
     if (user) {
-      setLoggedUser(user.username);
+      setLoggedUser({ username: user.username, userId: user.userId });
       setTodos(user.toDos);
     } else {
       alert("Wrong email or password");
@@ -46,7 +46,13 @@ function App() {
   };
 
   const handleLogout = () => {
-    setLoggedUser("");
+    setAccounts((prevAccounts) =>
+      prevAccounts.map((acc) =>
+        acc.userId === loggedUser.userId ? { ...acc, toDos: todos } : acc
+      )
+    );
+    setLoggedUser(null);
+    setTodos([]);
   };
 
   const addToDo = (e, todoName) => {
@@ -89,13 +95,26 @@ function App() {
     );
   };
 
+  const handleDeleteAcc = (id) => {
+    setAccounts((prevAccState) =>
+      prevAccState.filter((acc) => acc.userId !== id)
+    );
+    setLoggedUser(null);
+    alert("Account deleted successfully!");
+  };
+
   return (
     <>
       {!loggedUser ? (
         <FormRegistration handleLogin={handleLogin} />
       ) : (
         <>
-          <Header username={loggedUser} handleLogOut={handleLogout} />
+          <Header
+            username={loggedUser.username}
+            handleLogOut={handleLogout}
+            userId={loggedUser.userId}
+            handleDeleteAcc={handleDeleteAcc}
+          />
           {isAdding ? (
             <NewToDo addToDo={addToDo} onCancel={() => setIsAdding(false)} />
           ) : (

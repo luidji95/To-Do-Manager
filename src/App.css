@@ -355,3 +355,15 @@
   outline: none;
   box-shadow: 0 0 5px rgba(108, 99, 255, 0.8);
 }
+
+.acc-delete {
+  padding: 10px;
+  background-color: #333;
+  color: white;
+}
+
+.acc-delete:hover {
+  background-color: #272626;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+}
