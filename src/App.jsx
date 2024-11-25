@@ -4,11 +4,13 @@ import FormRegistration from "./FormRegistration";
 import Header from "./Header";
 import ToDoList from "./ToDoList";
 import NewToDo from "./NewToDo";
+import DeletingAccount from "./DeletingAccount";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(null);
   const [todos, setTodos] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [accounts, setAccounts] = useState([
     {
       username: "Milos",
@@ -46,11 +48,6 @@ function App() {
   };
 
   const handleLogout = () => {
-    setAccounts((prevAccounts) =>
-      prevAccounts.map((acc) =>
-        acc.userId === loggedUser.userId ? { ...acc, toDos: todos } : acc
-      )
-    );
     setLoggedUser(null);
     setTodos([]);
   };
@@ -68,13 +65,11 @@ function App() {
       completed: false,
     };
 
-    setTodos((prev) => {
-      return [...prev, newToDo];
-    });
+    setTodos((prev) => [...prev, newToDo]);
 
     setAccounts((prevAccounts) =>
       prevAccounts.map((acc) =>
-        acc.username === loggedUser
+        acc.userId === loggedUser.userId
           ? { ...acc, toDos: [...acc.toDos, newToDo] }
           : acc
       )
@@ -88,19 +83,26 @@ function App() {
 
     setAccounts((prevAccounts) =>
       prevAccounts.map((acc) =>
-        acc.username === loggedUser
+        acc.userId === loggedUser.userId
           ? { ...acc, toDos: acc.toDos.filter((todo) => todo.id !== id) }
           : acc
       )
     );
   };
 
-  const handleDeleteAcc = (id) => {
-    setAccounts((prevAccState) =>
-      prevAccState.filter((acc) => acc.userId !== id)
-    );
-    setLoggedUser(null);
-    alert("Account deleted successfully!");
+  const confirmDeleteAcc = (password) => {
+    const user = accounts.find((acc) => acc.userId === loggedUser.userId);
+    if (user.password === password) {
+      setAccounts((prevAccState) =>
+        prevAccState.filter((acc) => acc.userId !== loggedUser.userId)
+      );
+      setLoggedUser(null);
+      setTodos([]);
+      setIsDeleting(false);
+      alert("Account deleted successfully!");
+    } else {
+      alert("Password does not match!");
+    }
   };
 
   return (
@@ -112,8 +114,7 @@ function App() {
           <Header
             username={loggedUser.username}
             handleLogOut={handleLogout}
-            userId={loggedUser.userId}
-            handleDeleteAcc={handleDeleteAcc}
+            handleDeleteAcc={() => setIsDeleting(true)}
           />
           {isAdding ? (
             <NewToDo addToDo={addToDo} onCancel={() => setIsAdding(false)} />
@@ -128,6 +129,12 @@ function App() {
             handleDelete={handleDelete}
           />
         </>
+      )}
+      {isDeleting && (
+        <DeletingAccount
+          onConfirm={confirmDeleteAcc}
+          onCancel={() => setIsDeleting(false)}
+        />
       )}
     </>
   );

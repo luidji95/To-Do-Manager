@@ -6,7 +6,7 @@ function Header({ username, handleLogOut, handleDeleteAcc, userId }) {
       <button className="log-out-btn" onClick={handleLogOut}>
         Log out
       </button>
-      <button className="acc-delete" onClick={() => handleDeleteAcc(userId)}>
+      <button className="acc-delete" onClick={() => handleDeleteAcc()}>
         Delete Account
       </button>
     </div>
