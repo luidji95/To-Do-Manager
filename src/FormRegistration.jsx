@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 
-function FormRegistration({ handleLogin }) {
+function FormRegistration({ handleLogin, handleRegistration }) {
   const [isLogin, setIsLogin] = useState(true);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [registrationEmail, setRegistrationEmail] = useState("");
+  const [registrationPassword, setRegistrationPassword] = useState("");
+  const [registrationUserName, setRegistrationUserName] = useState("");
+  const [registrationConfirmPassword, setRegistrationConfirmPassword] =
+    useState("");
 
   return (
     <>
@@ -63,7 +68,31 @@ function FormRegistration({ handleLogin }) {
                 </button>
               </form>
             ) : (
-              <form className="form-section active">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (registrationPassword !== registrationConfirmPassword) {
+                    alert("Passwords do not match!");
+                    return;
+                  }
+                  if (!registrationEmail.includes("@")) {
+                    alert("Please enter a valid email!");
+                    return;
+                  }
+                  if (registrationPassword.length < 6) {
+                    alert("Password must be at least 6 characters long!");
+                    return;
+                  }
+                  handleRegistration(
+                    registrationUserName,
+                    registrationEmail,
+                    registrationPassword
+                  );
+                  alert("Registration successful! Please log in.");
+                  setIsLogin(true); // Automatski prebacuje na login formu
+                }}
+                className="form-section active"
+              >
                 <h2>Registration</h2>
                 <div className="form-group">
                   <label htmlFor="username">Username</label>
@@ -72,6 +101,8 @@ function FormRegistration({ handleLogin }) {
                     id="username"
                     name="username"
                     placeholder="Unesite korisničko ime"
+                    value={registrationUserName}
+                    onChange={(e) => setRegistrationUserName(e.target.value)}
                     required
                   />
                 </div>
@@ -82,6 +113,8 @@ function FormRegistration({ handleLogin }) {
                     id="email"
                     name="email"
                     placeholder="Unesite email"
+                    value={registrationEmail}
+                    onChange={(e) => setRegistrationEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -92,6 +125,8 @@ function FormRegistration({ handleLogin }) {
                     id="password"
                     name="password"
                     placeholder="Unesite lozinku"
+                    value={registrationPassword}
+                    onChange={(e) => setRegistrationPassword(e.target.value)}
                     required
                   />
                 </div>
@@ -102,6 +137,10 @@ function FormRegistration({ handleLogin }) {
                     id="confirmPassword"
                     name="confirmPassword"
                     placeholder="Potvrdite lozinku"
+                    value={registrationConfirmPassword}
+                    onChange={(e) =>
+                      setRegistrationConfirmPassword(e.target.value)
+                    }
                     required
                   />
                 </div>

@@ -105,10 +105,28 @@ function App() {
     }
   };
 
+  const handleRegistration = (usname, email, pass) => {
+    const newUser = {
+      username: usname,
+      eMail: email,
+      password: pass,
+      toDos: [],
+      userId: Date.now(),
+    };
+
+    setAccounts((prevAccounts) => [...prevAccounts, newUser]);
+    console.log(accounts);
+
+    alert(`Account created successfully for ${usname}!`);
+  };
+
   return (
     <>
       {!loggedUser ? (
-        <FormRegistration handleLogin={handleLogin} />
+        <FormRegistration
+          handleLogin={handleLogin}
+          handleRegistration={handleRegistration}
+        />
       ) : (
         <>
           <Header
